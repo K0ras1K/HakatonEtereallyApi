@@ -1,0 +1,19 @@
+package ru.k0ras1k.ethereally.data
+
+enum class EnumCourse() {
+
+    AI,
+    INFO_SECURITY,
+    BACK_END,
+    FRONT_END,
+    GAME_DEV,
+    ROBOTO_TECH,
+    INFO_CHEMISTRY,
+    BIO_ENGINEERING,
+    ECO_TECHNOLOGY,
+    OPTO_INFORMATICS,
+    WIRELESS_TECHNOLODY,
+    INNOVATION,
+    BUSINESS_INFORMATICS,
+
+}
