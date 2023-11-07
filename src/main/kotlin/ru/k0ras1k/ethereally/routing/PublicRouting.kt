@@ -31,6 +31,18 @@ fun Application.configurePublicRouting() {
             get("$ROUTING_PREFIX/users/get") {
                 UserAuthController(call).load()
             }
+
+            post("$ROUTING_PREFIX/course/tryupdate") {
+                //TODO Попытка обновления активности на курсе. Требует подтверждение учителя в ТГ
+            }
+
+            post("$ROUTING_PREFIX/course/join") {
+                //TODO Инсертить курс. Вступление на него
+            }
+
+            get("$ROUTING_PREFIX/course/get") {
+                //TODO Отправлять все курсы юзера с прогрессом
+            }
         }
     }
 }
