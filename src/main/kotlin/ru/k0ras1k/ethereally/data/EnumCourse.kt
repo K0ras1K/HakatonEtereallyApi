@@ -15,5 +15,6 @@ enum class EnumCourse() {
     WIRELESS_TECHNOLODY,
     INNOVATION,
     BUSINESS_INFORMATICS,
+    NONE
 
 }

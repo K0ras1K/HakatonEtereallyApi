@@ -8,9 +8,9 @@ data class UserData(
     val phone_number: String,
     val reg_data: Long,
     val password: String,
-    val status: EnumStatus,
-    val course: Int,
-    val section: EnumSection,
-    val about: String
+    val status: EnumStatus?,
+    val course: Int?,
+    val section: EnumSection?,
+    val about: String?
 
 )

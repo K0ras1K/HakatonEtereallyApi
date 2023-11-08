@@ -14,6 +14,8 @@ import ru.k0ras1k.ethereally.data.UserData
 import ru.k0ras1k.ethereally.data.database.Users
 import ru.k0ras1k.ethereally.models.LoginRecieveModel
 import ru.k0ras1k.ethereally.models.RegisterRecieveModel
+import ru.k0ras1k.ethereally.models.UpdateUserRecieveModel
+import ru.k0ras1k.ethereally.models.UserLoginRespondModel
 import ru.k0ras1k.ethereally.utils.Validator
 import java.util.*
 
@@ -37,7 +39,7 @@ class UserController(val call: ApplicationCall) {
                     .withClaim("password", user_data.password)
                     .withExpiresAt(Date(System.currentTimeMillis() + 5 * 60 * 60 * 60 * 24 * 60))
                     .sign(Algorithm.HMAC256(secret))
-                call.respond(hashMapOf("token" to token))
+                call.respond(HttpStatusCode.OK, UserLoginRespondModel(token))
             } else {
                 call.respond(HttpStatusCode.BadRequest)
             }
@@ -72,10 +74,10 @@ class UserController(val call: ApplicationCall) {
                     phone_number = recieve.phone_number,
                     reg_data = System.currentTimeMillis(),
                     password = hash,
-                    status = EnumStatus.valueOf(recieve.status),
-                    course = if (recieve.status == "ABITURIENT") 0 else recieve.course,
-                    section = EnumSection.valueOf(recieve.section),
-                    about = recieve.about
+                    status = null,
+                    course = null,
+                    section = null,
+                    about = null
                 )
 
                 Users.insert(user_data_1)
@@ -86,7 +88,7 @@ class UserController(val call: ApplicationCall) {
                     .withClaim("password", user_data_1.password)
                     .withExpiresAt(Date(System.currentTimeMillis() + 5 * 60 * 60 * 60 * 24 * 60))
                     .sign(Algorithm.HMAC256(secret))
-                call.respond(hashMapOf("token" to token))
+                call.respond(HttpStatusCode.OK, UserLoginRespondModel(token))
             } catch (e: ExposedSQLException) {
                 call.respond(HttpStatusCode.Conflict, "User already exists")
             }

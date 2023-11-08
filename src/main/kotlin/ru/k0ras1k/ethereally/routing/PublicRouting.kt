@@ -28,6 +28,10 @@ fun Application.configurePublicRouting() {
 
         // AUTHENTICATED
         authenticate("auth-jwt") {
+            post("$ROUTING_PREFIX/users/update") {
+                UserAuthController(call).update()
+            }
+
             get("$ROUTING_PREFIX/users/get") {
                 UserAuthController(call).load()
             }

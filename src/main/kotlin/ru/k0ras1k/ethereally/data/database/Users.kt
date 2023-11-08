@@ -1,9 +1,6 @@
 package ru.k0ras1k.ethereally.data.database
 
-import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.Table
-import org.jetbrains.exposed.sql.insert
-import org.jetbrains.exposed.sql.select
+import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
 import ru.k0ras1k.ethereally.data.EnumSection
 import ru.k0ras1k.ethereally.data.EnumStatus
@@ -35,9 +32,9 @@ object Users : Table("users") {
                     it[reg_time] = user_data.reg_data
                     it[phone_number] = user_data.phone_number
                     it[status] = user_data.status.toString()
-                    it[course] = user_data.course
+                    it[course] = 0
                     it[section] = user_data.section.toString()
-                    it[about] = user_data.about
+                    it[about] = ""
                 }
             }
         }
@@ -58,16 +55,33 @@ object Users : Table("users") {
                     password = user_model[password],
                     reg_data = user_model[reg_time],
                     phone_number = user_model[phone_number],
-                    status = EnumStatus.valueOf(user_model[status]),
+                    status = if (user_model[status] != "null") EnumStatus.valueOf(user_model[status]) else EnumStatus.NONE,
                     course = user_model[course],
-                    section = EnumSection.valueOf(user_model[section]),
+                    section = if (user_model[section] != "null") EnumSection.valueOf(user_model[section]) else EnumSection.NONE,
                     about = user_model[about]
                 )
             }
         }
         catch (e: Exception) {
-            Logger.error(e.stackTrace.toString())
+            println(e.localizedMessage)
             null
+        }
+    }
+
+    fun update(user_data: UserData) {
+        try {
+            transaction {
+                SchemaUtils.create(Users)
+                Users.update({ Users.email.eq(user_data.email) }) {
+                    it[status] = user_data.status.toString()
+                    it[course] = user_data.course!!
+                    it[section] = user_data.section.toString()
+                    it[about] = user_data.about!!
+                }
+            }
+        }
+        catch (e: Exception) {
+            Logger.error(e.stackTrace.toString())
         }
     }
 

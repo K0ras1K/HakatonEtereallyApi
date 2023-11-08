@@ -17,6 +17,11 @@ data class RegisterRecieveModel(
     val phone_number: String,
     val first_name: String,
     val last_name: String,
+    val password: String,
+)
+
+@Serializable
+data class UpdateUserRecieveModel (
     val status: String,
     val course: Int,
     val password: String,
@@ -35,4 +40,9 @@ data class UserRespondModel(
     val course: Int,
     val section: String,
     val about: String
+)
+
+@Serializable
+data class UserLoginRespondModel(
+    val token: String
 )

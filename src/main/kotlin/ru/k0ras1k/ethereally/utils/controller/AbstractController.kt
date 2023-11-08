@@ -9,6 +9,6 @@ import io.ktor.server.response.*
 abstract class AbstractController(val call: ApplicationCall) {
 
     val principal = call.principal<JWTPrincipal>()
-    val username = principal!!.payload.getClaim("username").asString()
+    val username = principal!!.payload.getClaim("email").asString()
 
 }

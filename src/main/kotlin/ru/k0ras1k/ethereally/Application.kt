@@ -5,8 +5,6 @@ import io.ktor.server.cio.*
 import io.ktor.server.engine.*
 import io.ktor.server.websocket.*
 import org.jetbrains.exposed.sql.Database
-import ru.k0ras1k.ethereally.features.hard.configureHardRouting
-import ru.k0ras1k.ethereally.features.lastplay.configureLastRouting
 import ru.k0ras1k.ethereally.plugins.configureJWT
 import ru.k0ras1k.ethereally.plugins.configureRouting
 import ru.k0ras1k.ethereally.plugins.conigureSerialization
@@ -38,8 +36,6 @@ fun Application.module() {
 
     configureRouting()
     conigureSerialization()
-    configureLastRouting()
-    configureHardRouting()
     configureJWT()
     configurePublicRouting()
 
